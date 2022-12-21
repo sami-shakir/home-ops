@@ -1,9 +1,14 @@
 ---
+# https://taskfile.dev/usage/
 version: "3"
 
 vars:
   PROJECT_DIR:
-    sh: "git rev-parse --show-toplevel"
+    sh: git rev-parse --show-toplevel
+  GIT_COMMIT:
+    sh: git log -n 1 --format=%h
+  USER_HOME_DIR:
+    sh: echo $HOME
   CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/provision/ansible"
   TERRAFORM_DIR: "{{.PROJECT_DIR}}/provision/terraform"
@@ -11,7 +16,8 @@ vars:
 dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
+  KUBECONFIG: "{{.USER_HOME_DIR}}/.kube/config"
+  PATH: "{{.PATH}}:{{.PROJECT_DIR}}/bin"  # add project bin to path
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yml
@@ -22,6 +28,11 @@ includes:
 
 tasks:
 
+  setup:
+    desc: Setup linux host (install brew etc.)
+    cmds:
+      - /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
   init:
     desc: Initialize workstation dependencies with Brew
     cmds:
@@ -30,13 +41,15 @@ tasks:
       - sh: command -v brew
         msg: |
           Homebrew is not installed. Using MacOS, Linux or WSL?
-          Head over to https://brew.sh to get up and running.
+          Run setup tasks or Head over to https://brew.sh:
+          task setup
     vars:
       DEPS: >-
         age
         direnv
         fluxcd/tap/flux
         go-task/tap/go-task
+        dopplerhq/cli/doppler
         helm
         ipcalc
         jq

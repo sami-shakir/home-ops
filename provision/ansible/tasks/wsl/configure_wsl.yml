@@ -1,0 +1,17 @@
+---
+- name: ensure .profile updates applied
+  blockinfile:
+    path: "{{ user_dir }}/.profile"
+    block: |
+      # Start Docker and SSH on boot
+      wsl.exe -u root -e sh -c "service docker status || service docker start"
+      wsl.exe -u root -e sh -c "service ssh status || service ssh start"
+      # For vagrant
+      export PATH="$PATH:/mnt/c/Program Files/Oracle/VirtualBox"
+      export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
+
+- name: Comment every item in /etc/environment file out - it keeps breaking windows paths in WSL, and I need those
+  replace:
+    path: /etc/environment
+    regexp: '^([^#].*)$'  # In order to backreference to group \1 below, the regex needs to be inside a capture group i.e. circle brackets: ()
+    replace: '# \1'

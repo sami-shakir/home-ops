@@ -1,0 +1,3 @@
+---
+hostname: "sami-pc-linux.{{ domain_name }}"
+has_gui: true

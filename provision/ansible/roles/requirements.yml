@@ -1,0 +1,34 @@
+---
+# Proxmox #
+- src: lae.proxmox  # Setup pve cluster on debian - # Currently Unused
+- src: udelarinterior.proxmox_create_lxc   # LXC containers provision - # Currently Unused
+- src: ironicbadger.proxmox_nag_removal
+- src: rossmcdonald.telegraf  # Currently Unused -> https://github.com/rossmcdonald/telegraf
+- src: riemers.gitlab-runner  # Install gitlab runner on an LXC
+- src: nununo.proxmox_haos_install
+
+# Linux #
+- src: hedii.youtube-dl
+
+# k3s #
+- src: geerlingguy.k8s_manifests
+
+# Docker #
+- src: arillso.logrotate
+- src: geerlingguy.docker
+
+# Minikube #
+- src: gantsign.minikube
+
+# WSL #
+# geerlingguy.docker as above
+- src: geerlingguy.ntp  # Currently Unused - This is also for proxmox above
+- src: andrewrothstein.kubectl  # Installs kubectl - mainly for WSL
+- src: geerlingguy.helm
+- name: markosamuli.pyenv
+  src: https://github.com/markosamuli/ansible-pyenv.git
+  scm: git
+- src: https://github.com/c0sco/ansible-modules-bitwarden # Allows bitwarden lookups
+  scm: git
+
+# Others - Third party etc.
