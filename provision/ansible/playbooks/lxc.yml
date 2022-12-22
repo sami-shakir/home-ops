@@ -3,6 +3,7 @@
 # Pre-tasks run before anything else! #
 # ----------------------------------- #
 - hosts: lxc
+  name: LXC Pre-all
   # Special tag "always" -> https://docs.ansible.com/ansible/latest/user_guide/playbooks_tags.html#special-tags-always-and-never
   tags: ["always"]
   gather_facts: false

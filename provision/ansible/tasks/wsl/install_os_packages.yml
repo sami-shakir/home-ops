@@ -10,6 +10,7 @@
   shell:
     cmd: "lsb_release -cs"
   register: wsl_distro_short_name
+  changed_when: false
 
 - name: Add apt signing keys
   apt_key:

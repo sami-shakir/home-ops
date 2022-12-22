@@ -9,8 +9,9 @@
   file:
     path: /etc/vbox/networks.conf
     state: touch
+    mode: '0644'
 
-- name: ensure virtualbox network config file updated
+- name: Ensure virtualbox network config file updated
   blockinfile:
     path: /etc/vbox/networks.conf
     block: |

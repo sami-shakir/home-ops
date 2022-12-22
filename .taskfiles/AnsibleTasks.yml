@@ -66,3 +66,9 @@ tasks:
     dir: provision/ansible
     cmds:
       - ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.ini -a '/usr/bin/systemctl poweroff' --become
+
+  lint:
+    desc: Ansible lint
+    dir: provision/ansible
+    cmds:
+      - ansible-lint --config-file {{.PROJECT_DIR}}/.github/linters/.ansible-lint --project-dir {{.PROJECT_DIR}}/provision/ansible/ --exclude="molecule/"

@@ -47,10 +47,10 @@ repos:
   #     - id: terraform-validate
   #     - id: tflint
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 4c7c3dd7161ef39e984cb295e93a968236dc8e8a  # v0.8.0.4
+    rev: v0.9.0.2 # https://github.com/shellcheck-py/shellcheck-py/tags
     hooks:
       - id: shellcheck
-  # - repo: https://github.com/ansible-community/ansible-lint.git
-  #   rev: a058554b9bcf88f12ad09ab9fb93b267a214368f  # v6.8.6
-  #   hooks:
-  #     - id: ansible-lint
+  - repo: https://github.com/ansible/ansible-lint.git
+    rev: v6.10.0  # Put latest release tag from https://github.com/ansible/ansible-lint/releases/
+    hooks:
+      - id: ansible-lint

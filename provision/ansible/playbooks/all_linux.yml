@@ -10,5 +10,5 @@
   tasks:
 
     - name: Set timezone
-      timezone:
+      community.general.timezone:
         name: "{{ tz }}"
