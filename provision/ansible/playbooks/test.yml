@@ -31,7 +31,7 @@
 
 
   ### Windows
-  hosts: windows
+  # hosts: windows
 
   # ### lxc
   # hosts: lxc
@@ -43,13 +43,13 @@
   #     tags: ["always"]
 
   # ### wsl
-  # hosts: wsl
-  # become: true
-  # pre_tasks:
-  #   # This is to get the PUID and PGID variables to use later in multiple areas
-  #   - name: Get user info or create a user if one doesn't exist
-  #     ansible.builtin.import_tasks: tasks/linux/pre_tasks.yml
-  #     tags: ["always"]
+  hosts: wsl
+  become: true
+  pre_tasks:
+    # This is to get the PUID and PGID variables to use later in multiple areas
+    - name: Get user info or create a user if one doesn't exist
+      ansible.builtin.import_tasks: ../tasks/linux/pre_tasks.yml
+      tags: ["always"]
 
 # ----------------- #
 # Roles Declaration #
@@ -68,3 +68,13 @@
         var: ansible_facts
 
     # - debug: var=hostvars['localhost']['ansible_facts']['env']
+
+    - name: Count number of vagrant plugins installed
+      ansible.builtin.command:
+        cmd: vagrant plugin list
+      register: count_vagrant_plugins
+      changed_when: false
+
+    - name: Install vagrant plugins
+      ansible.builtin.command: vagrant plugin install virtualbox_WSL2 vagrant-vbguest vagrant-hosts
+      changed_when: count_vagrant_plugins.stdout_lines | length < 3

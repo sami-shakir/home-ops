@@ -71,4 +71,16 @@ tasks:
     desc: Ansible lint
     dir: provision/ansible
     cmds:
-      - ansible-lint --config-file {{.PROJECT_DIR}}/.github/linters/.ansible-lint --project-dir {{.PROJECT_DIR}}/provision/ansible/ --exclude="molecule/"
+      - ansible-lint --config-file {{.PROJECT_DIR}}/.ansible-lint --project-dir {{.PROJECT_DIR}}/provision/ansible/ --exclude="molecule/"
+
+  test-playbook:
+    desc: Run the test playbook
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.ini {{.ANSIBLE_PLAYBOOK_DIR}}/test.yml
+
+  wsl-personal:
+    desc: Setup/Configure WSL
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.ini {{.ANSIBLE_PLAYBOOK_DIR}}/wsl.yml {{.ANSIBLE_PLAYBOOK_DIR}}/wsl_personal.yml {{.CLI_ARGS}}
