@@ -1,0 +1,47 @@
+---
+version: "3"
+
+tasks:
+
+  main:
+    desc: 🐳 Main docker play
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i inventory/hosts.ini playbook_docker.yml $(runargs)
+
+  update-compose:
+    desc: 🐳 Updated docker-compose files
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i inventory/hosts.ini --tags "update_compose" -e "update_compose=true" playbook_docker.yml $(runargs)
+
+  copy-files:
+    desc: 🐳 Copy docker files to docker vm
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i inventory/hosts.ini --tags "copy_files,update_compose" -e "copy_files=true" -e "update_compose=true" playbook_docker.yml $(runargs)
+
+  setup-containers:
+    desc: 🐳 Run setup docker containers tasks
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i inventory/hosts.ini --tags "copy_files,update_compose,setup_containers" -e "copy_files=true" -e "update_compose=true" playbook_docker.yml $(runargs)
+
+  run-tags:
+    desc: 🐳 Run only the tags passed in separated by comma (e.g. make run-tags update_compose,logrotate)
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i inventory/hosts.ini --tags $(runargs) playbook_docker.yml
+
+  run-tags-v:
+    desc: 🐳 VERBOSE - Same as above
+    dir: provision/ansible
+    cmds:
+      - ansible-playbook -i inventory/hosts.ini -vvv --tags $(runargs) playbook_docker.yml
+
+  restore-containers:
+    desc: 🐳 Restore docker container data from backups on NFS share - Pass the inventory_hostname/group_names of the item you want to run this on
+    dir: provision/ansible
+    cmds:
+      - echo "WARNING - This is going to restore the containers in place of whatever is there currently. Press any key to continue..."; read break;
+      - ansible-playbook -i inventory/hosts.ini --tags "restore_docker_data" -e "restore_docker_data=true" playbook_docker.yml --limit $(runargs)
