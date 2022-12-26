@@ -85,7 +85,7 @@ run-docker-registry-dotfiles:  ## 🐳 Run the docker container from the public 
   ${registry_container_name}
 
 run-docker-local: build-docker  ## 🐳 Run the docker container from the locally built image (also builds the image)
-  ${docker_run_cmd} \
+  @${docker_run_cmd} \
   ${local_container_name}
 
 run-docker-local-dotfiles: build-docker  ## 🐳 Run the docker container from the locally built image (also builds the image) with dotfiles volume mount (mainly personal)
@@ -179,19 +179,19 @@ vagrant-setup:  ## 🚧 Add generic/ubuntu2004 box to vagrant (assumes vagrant i
 # Even though I've got the git commit hook in place, when the repo name changes for example, and repo is cloned fresh, this poses a problem when forgetting to run `make setup` first and deploying the hook.
 # This approach is just far safer than decrypting and encrypting the files themselves below.
 edit-vault:  ## 🔒 Edit ansible vaults in-place instead of flat out decrypting it to reduce risk of pushing it in cleartext to remote repo.
-  ansible-vault edit group_vars/all/vault.yml
+  ansible-vault edit provision/ansible/inventory/group_vars/all/vault.yml
 
 edit-inventory:  ## 🔒 Edit ansible inventory in-place instead of flat out decrypting it to reduce risk of pushing it in cleartext to remote repo.
   ansible-vault edit inventory/hosts.ini
 
 decrypt:  ## 🔒 Decrypt vaulted items (requires stored password)
-  ansible-vault decrypt group_vars/all/vault.yml inventory/hosts.ini
+  ansible-vault decrypt provision/ansible/inventory/group_vars/all/vault.yml inventory/hosts.ini
 
 encrypt:  ## 🔒 Encrypt vaulted items (requires stored password)
-  ansible-vault encrypt group_vars/all/vault.yml inventory/hosts.ini
+  ansible-vault encrypt provision/ansible/inventory/group_vars/all/vault.yml inventory/hosts.ini
 
 list-vars:  ## 🔒 List variables
-  @$(CURDIR)/bin/vars_list.py vars/config.yml group_vars/all/vault.yml $(runargs)
+  @$(CURDIR)/bin/vars_list.py vars/config.yml provision/ansible/inventory/group_vars/all/vault.yml $(runargs)
 
 list-tags:  ## 🔒 List the available tags that you can run standalone from the playbook
   @grep 'tags:' playbook_*.yml | grep -v always | awk -F\" '{print $$2}'

@@ -1,7 +1,7 @@
 ---
 - name: Copy docker folder and all files across maintaining perms from repo
   copy:
-    src: files/docker
+    src: "{{ playbook_dir }}/../files/docker"
     dest: "{{ user_dir }}"
     owner: "{{ main_user }}"
     group: "{{ docker_group }}"

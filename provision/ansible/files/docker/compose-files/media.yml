@@ -53,15 +53,16 @@ volumes:
       o: "addr=${NAS_IP},wsize=65536,rsize=65536,timeo=60,nolock,soft,rw"
       device: ":${NAS_SYNCTHING_PATH}"
   plex_data:
+    driver: local # Must be set to avoid issues.
     driver_opts:
       type: "nfs"
       o: "addr=${NAS_IP},wsize=65536,rsize=65536,timeo=60,nolock,soft,rw"
-      device: ":${NAS_DOCKER_DATA_PATH}/plex"
-  shared_data:
-    driver_opts:
-      type: "nfs"
-      o: "addr=${NAS_IP},wsize=65536,rsize=65536,timeo=60,nolock,soft,rw"
-      device: ":${NAS_DOCKER_DATA_PATH}/shared"
+      device: ":${NAS_DOCKER_DATA_PATH}"
+  # shared_data:
+  #   driver_opts:
+  #     type: "nfs"
+  #     o: "addr=${NAS_IP},wsize=65536,rsize=65536,timeo=60,nolock,soft,rw"
+  #     device: ":${NAS_DOCKER_DATA_PATH}/shared"
 
 ########################### SECRETS
 
@@ -93,15 +94,15 @@ services:
       - "32414:32414/udp"
       # - "$PLEX_WEB_TOOLS_PORT:33400"
     environment:
-      - PLEX_UID=${PUID}
-      - PLEX_GID=${PGID}
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM} # YOU NEED THIS EVERY TIME YOU BUILD A NEW INSTALL
       - ADVERTISE_IP=http://${SERVER_IP}:32400/
       - ALLOWED_NETWORKS=10.0.0.0/24,10.10.0.0/24
     volumes:
-      - plex_data:/config
+      - ${DOCKERDIR}/appdata/plex:/config
       - movies:/data/movies
       - tv:/data/tv
       - /dev/shm:/transcode # Offload transcoding to RAM if you have enough RAM. Otherwise, disk:

@@ -127,10 +127,10 @@ nas:
       local_mapping: "{{ user_dir }}/mount/docker_backups"
       remote_mapping: "/volume1/nfs/docker_backups"
     k3s_appdata:
-      local_mapping: "{{ user_dir }}/mount/k3s_appdata"
+      local_mapping: "{{ user_dir }}/mount/k3s_data"
       remote_mapping: "/volume1/nfs/k3s_appdata"
     docker_data:
-      local_mapping: "{{ user_dir }}/mount/docker_appdata"
+      local_mapping: "{{ user_dir }}/mount/docker_data"
       remote_mapping: "/volume1/nfs/docker_data"
     downloads:
       local_mapping: "{{ user_dir }}/mount/downloads"

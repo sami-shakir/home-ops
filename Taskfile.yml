@@ -118,28 +118,32 @@ tasks:
 
   edit-vault:
     desc: 🔒 Edit ansible vaults in-place instead of flat out decrypting it to reduce risk of pushing it in cleartext to remote repo.
+    dir: provision/ansible/inventory/group_vars/all
     cmds:
-      - ansible-vault edit group_vars/all/vault.yml
+      - ansible-vault edit vault.yml
 
   edit-inventory:
     desc: 🔒 Edit ansible inventory in-place instead of flat out decrypting it to reduce risk of pushing it in cleartext to remote repo.
+    dir: provision/ansible/inventory
     cmds:
-      - ansible-vault edit inventory/hosts.ini
+      - ansible-vault edit hosts.ini
 
   decrypt:
     desc: 🔒 Decrypt vaulted items (requires stored password)
+    dir: provision/ansible/inventory
     cmds:
-      - ansible-vault decrypt group_vars/all/vault.yml inventory/hosts.ini
+      - ansible-vault decrypt vault.yml hosts.ini
 
   encrypt:
     desc: 🔒 Encrypt vaulted items (requires stored password)
+    dir: provision/ansible/inventory
     cmds:
-      - ansible-vault encrypt group_vars/all/vault.yml inventory/hosts.ini
+      - ansible-vault encrypt vault.yml hosts.ini
 
   list-vars:
     desc: 🔒 List variables
     cmds:
-      - $(CURDIR)/bin/vars_list.py vars/config.yml group_vars/all/vault.yml $(runargs)
+      - $(CURDIR)/bin/vars_list.py vars/config.yml vault.yml {{.CLI_ARGS}}
 
   list-tags:
     desc: 🔒 List the available tags that you can run standalone from the playbook
@@ -168,4 +172,4 @@ tasks:
   test:
     desc: 🧪 Run the test playbook
     cmds:
-      - ansible-playbook -i inventory/hosts.ini playbook_test.yml $(runargs)
+      - ansible-playbook -i inventory/hosts.ini playbook_test.yml {{.CLI_ARGS}}
