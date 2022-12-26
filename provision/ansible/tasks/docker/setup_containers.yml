@@ -8,14 +8,20 @@
     cmd: "docker run --rm authelia/authelia:latest authelia hash-password {{ item.value.password }} | cut -d\\  -f 3"
   register: authelia_hashed_passwords_result
   with_dict: "{{ authelia.users }}"
-  no_log: true
+  # no_log: true
+
+- name: debug authelia
+  debug: var=authelia_hashed_passwords_result
 
 - name: Set hashed Authelia passwords fact
   set_fact:
     authelia_hashed_passwords: "{{ authelia_hashed_passwords | default({}) | combine( {'users': {item.item.key: item.stdout}}, recursive=True) }}"
   with_items:
     - "{{ authelia_hashed_passwords_result.results }}"
-  no_log: true
+  # no_log: true
+
+- name: debug authelia
+  debug: var=authelia_hashed_passwords
 
 - name: Touch authelia users_database file to ensure it exists
   file:

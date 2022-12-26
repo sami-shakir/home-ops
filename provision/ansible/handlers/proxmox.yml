@@ -1,15 +1,15 @@
 ---
-- name: restart pvestatd
+- name: Restart pvestatd
   service:
     name: pvestatd
     state: restarted
 
-- name: restart telegraf
+- name: Restart telegraf
   service:
     name: telegraf
     state: restarted
 
-- name: restart cron
+- name: Restart cron
   service:
     name: cron
     state: restarted
