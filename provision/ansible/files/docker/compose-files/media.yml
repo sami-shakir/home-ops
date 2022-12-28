@@ -100,7 +100,7 @@ services:
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM} # YOU NEED THIS EVERY TIME YOU BUILD A NEW INSTALL
       - ADVERTISE_IP=http://${SERVER_IP}:32400/
-      - ALLOWED_NETWORKS=10.0.0.0/24,10.10.0.0/24
+      - ALLOWED_NETWORKS=10.0.0.0/24,10.10.0.0/24,10.4.0.0/24
     volumes:
       - ${DOCKERDIR}/appdata/plex:/config
       - movies:/data/movies

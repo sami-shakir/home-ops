@@ -50,8 +50,8 @@ services:
       retries: 3
     network_mode: host
     depends_on:
-      influxdb:
-        condition: service_healthy
+      # influxdb:
+      #   condition: service_healthy
       mariadb:    # MariaDB is optional (only if you would like to use a different database for HA).
         condition: service_healthy
       mqtt:     # mqtt is optional (only if you want to add Zigbee devices and have a zigbee sniffer attached).

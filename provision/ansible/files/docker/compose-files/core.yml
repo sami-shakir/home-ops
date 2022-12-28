@@ -428,9 +428,9 @@ services:
     ports:
       - "$GRAFANA_PORT:3000"
     user: "0"
-    depends_on:
-      influxdb:
-        condition: service_healthy
+    # depends_on:
+    #   influxdb:
+    #     condition: service_healthy
     volumes:
       - ${DOCKERDIR}/appdata/grafana:/var/lib/grafana
       # - ${DOCKERDIR}/grafana/logs:/var/log/grafana  # Logging file when debugging. Disable in prod.
