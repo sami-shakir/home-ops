@@ -92,7 +92,7 @@ services:
       - "32412:32412/udp"
       - "32413:32413/udp"
       - "32414:32414/udp"
-      # - "$PLEX_WEB_TOOLS_PORT:33400"
+      - "$PLEX_WEB_TOOLS_PORT:33400"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -100,7 +100,7 @@ services:
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM} # YOU NEED THIS EVERY TIME YOU BUILD A NEW INSTALL
       - ADVERTISE_IP=http://${SERVER_IP}:32400/
-      - ALLOWED_NETWORKS=10.0.0.0/24,10.10.0.0/24,10.4.0.0/24
+      - ALLOWED_NETWORKS=10.0.0.0/24,10.10.0.0/24,10.4.0.0/24,192.168.90.0/24,192.168.91.0/24
     volumes:
       - ${DOCKERDIR}/appdata/plex:/config
       - movies:/data/movies
