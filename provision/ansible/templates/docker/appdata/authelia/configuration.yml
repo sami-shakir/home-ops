@@ -10,10 +10,10 @@ server:
 log:
   # Level of verbosity for logs: info, debug, trace.
   level: debug
-theme: dark
 
 # This secret can also be set using the env variables AUTHELIA_JWT_SECRET_FILE
 jwt_secret: {{ authelia.jwt_secret }} # use docker secret file instead AUTHELIA_JWT_SECRET_FILE
+theme: dark
 default_redirection_url: "https://home.{{ domain_name }}"
 
 totp:

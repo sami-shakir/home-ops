@@ -109,5 +109,16 @@ This is done in make, run `make setup-pb`. Manual steps below:
 
 ```bash
 mkdir ~/.kube
+```
+
+Then for k3s cluster (k3sm1):
+
+```bash
 scp vagrant@192.168.30.38:~/.kube/config ~/.kube/config
+```
+
+or if single (k3s-single):
+
+```bash
+scp vagrant@192.168.30.50:~/.kube/config ~/.kube/config
 ```

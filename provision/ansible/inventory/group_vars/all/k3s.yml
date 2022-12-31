@@ -13,7 +13,7 @@ system_timezone: "Australia/Sydney"
 # interface which will be used for flannel
 flannel_iface: "eth0"
 
-# apiserver_endpoint is virtual ip-address which will be configured on each master
+# apiserver_endpoint (Kube-VIP control plane ip) is virtual ip-address which will be configured on each master
 # apiserver_endpoint: "10.10.0.40"
 apiserver_endpoint: "192.168.30.222"
 
@@ -60,11 +60,11 @@ metal_lb_ip_range: "192.168.30.80-192.168.30.90"
 ### geerlingguy.k8s_manifests variables ###
 ###########################################
 
-k8s_kubeconfig: ~/.kube/config
-k8s_manifests_base_dir: templates/manifests/
-k8s_resource_namespace: 'default'
-k8s_manifests:  # Maybe just do a jinja lookup for filenames and create a list from that? make it dynamic
-  - nfs
+# k8s_kubeconfig: ~/.kube/config
+# k8s_manifests_base_dir: templates/k3s/manifests/
+# k8s_resource_namespace: 'default'
+# k8s_manifests:  # Maybe just do a jinja lookup for filenames and create a list from that? make it dynamic
+#   - nfs
 
 #######################
 ### Helm Chart Data ###
