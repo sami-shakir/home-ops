@@ -66,7 +66,7 @@ required_items:
     - "{{ user_dir }}/.docker"
     - "{{ docker_dir }}/secrets"
     - "{{ docker_dir }}/scripts"
-    - "{{ docker_dir }}/appdata/mariadb/config/initdb.d"
+    - "{{ docker_dir }}/appdata/mariadb/initdb.d"
     - "{{ docker_dir }}/appdata/mqtt/log"
     - "{{ docker_dir }}/appdata/mqtt/config"
     - "{{ docker_dir }}/appdata/traefik/acme"

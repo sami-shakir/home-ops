@@ -11,7 +11,7 @@
 # i.e. this task is going to just copy them in a templated way from src to dest
 - name: find proxmox templates
   find:
-    paths: "{{ playbook_dir }}/templates/proxmox"
+    paths: "{{ playbook_dir }}/../templates/proxmox"
     recurse: true
   delegate_to: localhost
   register: full_path_proxmox_templates

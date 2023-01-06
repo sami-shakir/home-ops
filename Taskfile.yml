@@ -30,12 +30,15 @@ vars:
   # Check if VAULT_PASS is set, and pass through to container, otherwise don't and let stdin in the parse_pass python script, ask for it.
   DO_VAULT_PASS:
     sh: if ! [ -z $VAULT_PASS ]; then echo '--env VAULT_PASS=${VAULT_PASS}'; fi
+  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
+  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
 
 dotenv: [".config.env"]
 
 env:
   KUBECONFIG: "{{.USER_HOME_DIR}}/.kube/config"
   PATH: "{{.PATH}}:{{.PROJECT_DIR}}/bin"  # add project bin to path
+  ANSIBLE_CONFIG: "{{.ANSIBLE_DIR}}/ansible.cfg"
 
 includes:
   setup: .taskfiles/Setup.yml
@@ -46,6 +49,7 @@ includes:
   precommit: .taskfiles/PrecommitTasks.yml
   terraform: .taskfiles/TerraformTasks.yml
   sops: .taskfiles/SopsTasks.yml
+  molecule: .taskfiles/Molecule.yml
 
 tasks:
 

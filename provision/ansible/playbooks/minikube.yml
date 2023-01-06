@@ -54,9 +54,6 @@
     - name: Install pip dependencies
       ansible.builtin.import_tasks: ../tasks/minikube/pip.yml
 
-    - name: Setup aliases and functions in bash environment
-      ansible.builtin.import_tasks: ../tasks/minikube/bashrc.yml
-
     - name: Start minikube
       shell: minikube start
 

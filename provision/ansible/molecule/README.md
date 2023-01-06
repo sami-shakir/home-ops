@@ -75,7 +75,7 @@ You will get [Molecule, Ansible and a few extra dependencies](../requirements.tx
 Usually, it is advisable to work in a [virtual environment](https://docs.python.org/3/tutorial/venv.html) for this:
 
 ```bash
-cd ~/git/personal/homelab/
+cd ~/git/personal/home-ops/provision/ansible/
 
 # Create a virtualenv at ".env". You only need to do this once.
 python3 -m venv .env

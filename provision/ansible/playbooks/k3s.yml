@@ -4,27 +4,27 @@
   gather_facts: true
   become: true
   roles:
-    - role: k3s/prereq
-    - role: k3s/download
-    - role: k3s/raspberrypi
+    - role: ../roles/k3s/prereq
+    - role: ../roles/k3s/download
+    - role: ../roles/k3s/raspberrypi
 
 - hosts: k3s_master
   name: K3s/master
   become: true
   roles:
-    - role: k3s/master
+    - role: ../roles/k3s/master
 
 - hosts: k3s_node
   name: K3s/node
   become: true
   roles:
-    - role: k3s/node
+    - role: ../roles/k3s/node
 
 - hosts: k3s_master
   name: K3s/post
   become: true
   roles:
-    - role: k3s/post
+    - role: ../roles/k3s/post
 
 # -------------- #
 # Custom entries #

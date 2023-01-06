@@ -22,7 +22,7 @@
   delegate_to: localhost
   become: false
   find:
-    paths: "{{ playbook_dir }}/templates/docker"
+    paths: "{{ playbook_dir }}/../templates/docker"
     recurse: true
   register: full_path_docker_templates
 
@@ -37,7 +37,7 @@
 
 - name: Copy docker templates
   template:
-    src: "{{ item }}"
+    src: "{{ playbook_dir }}/../templates/{{ item }}"
     dest: "{{ user_dir }}/{{ item }}"
     owner: "{{ main_user }}"
     group: "{{ docker_group }}"

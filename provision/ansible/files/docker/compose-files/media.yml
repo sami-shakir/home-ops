@@ -482,38 +482,38 @@ services:
       - "traefik.http.services.syncthing-svc.loadbalancer.server.port=8384"
     <<: *logging
 
-  # MKVToolNix - Video Editing (Remuxing - changing media container while keeping original source quality)
-  # https://hub.docker.com/r/jlesage/mkvtoolnix
-  mkvtoolnix:
-    container_name: mkvtoolnix
-    image: jlesage/mkvtoolnix:latest
-    init: true
-    restart: unless-stopped
-    healthcheck:
-      test: nc -z localhost 5800
-      interval: 60s
-      timeout: 3s
-      retries: 3
-    networks:
-      traefik_proxy:
-    # ports:
-    #   - "$MKVTOOLNIX_PORT:5800"
-    volumes:
-      - downloads:/data/downloads
-      - ${DOCKERDIR}/appdata/mkvtoolnix/config:/config:rw
-    environment:
-      USER_ID: ${PUID}
-      GROUP_ID: ${PGID}
-      TZ: ${TZ}
-      UMASK: 002
-    labels:
-      - "traefik.enable=true"
-      ## HTTP Routers
-      - "traefik.http.routers.mkvtoolnix-rtr.entrypoints=https"
-      - "traefik.http.routers.mkvtoolnix-rtr.rule=Host(`mkvtoolnix.$DOMAINNAME`)"
-      ## Middlewares
-      - "traefik.http.routers.mkvtoolnix-rtr.middlewares=chain-oauth@file"
-      ## HTTP Services
-      - "traefik.http.routers.mkvtoolnix-rtr.service=mkvtoolnix-svc"
-      - "traefik.http.services.mkvtoolnix-svc.loadbalancer.server.port=5800"
-    <<: *logging
+  # # MKVToolNix - Video Editing (Remuxing - changing media container while keeping original source quality)
+  # # https://hub.docker.com/r/jlesage/mkvtoolnix
+  # mkvtoolnix:
+  #   container_name: mkvtoolnix
+  #   image: jlesage/mkvtoolnix:latest
+  #   init: true
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: nc -z localhost 5800
+  #     interval: 60s
+  #     timeout: 3s
+  #     retries: 3
+  #   networks:
+  #     traefik_proxy:
+  #   # ports:
+  #   #   - "$MKVTOOLNIX_PORT:5800"
+  #   volumes:
+  #     - downloads:/data/downloads
+  #     - ${DOCKERDIR}/appdata/mkvtoolnix/config:/config:rw
+  #   environment:
+  #     USER_ID: ${PUID}
+  #     GROUP_ID: ${PGID}
+  #     TZ: ${TZ}
+  #     UMASK: 002
+  #   labels:
+  #     - "traefik.enable=true"
+  #     ## HTTP Routers
+  #     - "traefik.http.routers.mkvtoolnix-rtr.entrypoints=https"
+  #     - "traefik.http.routers.mkvtoolnix-rtr.rule=Host(`mkvtoolnix.$DOMAINNAME`)"
+  #     ## Middlewares
+  #     - "traefik.http.routers.mkvtoolnix-rtr.middlewares=chain-oauth@file"
+  #     ## HTTP Services
+  #     - "traefik.http.routers.mkvtoolnix-rtr.service=mkvtoolnix-svc"
+  #     - "traefik.http.services.mkvtoolnix-svc.loadbalancer.server.port=5800"
+  #   <<: *logging
