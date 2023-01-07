@@ -5,8 +5,8 @@
   gather_facts: true
   become: true
   roles:
-    - role: k3s/reset
-    - role: k3s/raspberrypi
+    - role: ../roles/k3s/reset
+    - role: ../roles/k3s/raspberrypi
       vars: {state: absent}
   post_tasks:
     - name: Reboot and wait for node to come back up

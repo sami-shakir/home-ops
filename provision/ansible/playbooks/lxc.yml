@@ -16,7 +16,7 @@
 
 - name: Setup and configure dev01 Container
   hosts: dev_lxc
-  tags: ["lxc-dev_lxc"]
+  tags: ["lxc_dev"]
   become: true
 
   pre_tasks: &pre_tasks
@@ -38,7 +38,7 @@
     - geerlingguy.helm    # Install helm on minikube nodes to deploy charts in ansible
     - geerlingguy.docker
     - geerlingguy.ntp
-    - lxc/dev01
+    - ../roles/lxc/dev01
 
   tasks:
 
@@ -47,12 +47,12 @@
       when: git
       tags: ["git"]
 
-    - name: Setup aliases and functions in bash environment
-      ansible.builtin.import_tasks: ../tasks/k3s/user_dependencies.yml
+    # - name: Setup aliases and functions in bash environment
+    #   ansible.builtin.import_tasks: ../tasks/k3s/user_dependencies.yml
 
-    - name: Setup dependencies
-      ansible.builtin.import_tasks: ../tasks/k3s/system_dependencies.yml
-      become: true
+    # - name: Setup dependencies
+    #   ansible.builtin.import_tasks: ../tasks/k3s/system_dependencies.yml
+    #   become: true
 
     # - name: deploy k8s manifests
     #   import_role:
@@ -64,7 +64,7 @@
 
 - name: Setup Gitlab Runner LXC(s)
   hosts: gitlab_runner
-  tags: ["lxc-gitlab_runner"]
+  tags: ["lxc_gitlab_runner"]
   become: true
 
   pre_tasks: *pre_tasks
@@ -74,7 +74,7 @@
     - riemers.gitlab-runner
     - geerlingguy.docker
     - geerlingguy.ntp
-    - lxc/gitlab-runner
+    - ../roles/lxc/gitlab-runner
 
 ### LDAP turnkey is a WIP
 

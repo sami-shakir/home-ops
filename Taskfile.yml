@@ -1,5 +1,7 @@
 ---
 # https://taskfile.dev/usage/
+# https://github.com/go-task/task
+
 version: "3"
 
 vars:
@@ -50,6 +52,11 @@ includes:
   terraform: .taskfiles/TerraformTasks.yml
   sops: .taskfiles/SopsTasks.yml
   molecule: .taskfiles/Molecule.yml
+  k3s: .taskfiles/K3s.yml
+  lxc: .taskfiles/Lxc.yml
+  minikube: .taskfiles/Minikube.yml
+  windows: .taskfiles/Windows.yml
+  wsl: .taskfiles/Wsl.yml
 
 tasks:
 

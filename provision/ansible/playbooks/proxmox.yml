@@ -41,12 +41,12 @@
 
     - role: ironicbadger.proxmox_nag_removal
     # Run pre-tasks on Proxmox host (Mainly just check connectivity)
-    - role: proxmox/pre-tasks
+    - role: ../roles/proxmox/pre-tasks
       tags: ["pre-tasks"]
-    - role: proxmox/install-os-packages
+    - role: ../roles/proxmox/install-os-packages
       when: install_os_packages
       tags: ["install_os_packages"]
-    - role: proxmox/copy-files
+    - role: ../roles/proxmox/copy-files
       when: copy_files
       tags: ["copy_files"]
     - role: nununo.proxmox_haos_install
@@ -69,7 +69,7 @@
   roles:
 
     # Download and configure LXC containers
-    - role: proxmox/provision-lxcs
+    - role: ../roles/proxmox/provision-lxcs
       when: provision_lxcs
       tags: ["provision_lxcs"]
       delegate_to: proxmox1  # The hosts aren't provisioned yet, so no tasks should run on them. Delegate everything to proxmox but use lxc inventory.
@@ -82,11 +82,11 @@
   roles:
 
     # Create Ubuntu VM Template from public cloud image
-    - role: proxmox/vm-template-from-ubuntu-cloud-image
+    - role: ../roles/proxmox/vm-template-from-ubuntu-cloud-image
       when: create_ubuntu_vm_template
       tags: ["create_ubuntu_vm_template"]
     # Create Debian VM Template from public cloud image
-    - role: proxmox/vm-template-from-debian-cloud-image
+    - role: ../roles/proxmox/vm-template-from-debian-cloud-image
       when: create_debian_vm_template
       tags: ["create_debian_vm_template"]
 
@@ -101,11 +101,11 @@
 
   roles:
 
-    - role: proxmox/provision-vms
+    - role: ../roles/proxmox/provision-vms
       when: provision_vms
       tags: ["provision_vms"]
       delegate_to: proxmox1  # The hosts aren't provisioned yet, so no tasks should run on them. Delegate everything to proxmox but use docker inventory.
-    - role: proxmox/vm-post-tasks
+    - role: ../roles/proxmox/vm-post-tasks
       when: provision_vms
       tags: ["provision_vms"]
 
@@ -119,11 +119,11 @@
 
   roles:
 
-    - role: proxmox/provision-vms
+    - role: ../roles/proxmox/provision-vms
       when: provision_vms
       tags: ["provision_vms"]
       delegate_to: proxmox1  # The hosts aren't provisioned yet, so no tasks should run on them. Delegate everything to proxmox but use docker inventory.
-    - role: proxmox/vm-post-tasks
+    - role: ../roles/proxmox/vm-post-tasks
       when: provision_vms
       tags: ["provision_vms"]
 
@@ -137,11 +137,11 @@
 
   roles:
 
-    - role: proxmox/provision-vms
+    - role: ../roles/proxmox/provision-vms
       when: provision_vms
       tags: ["provision_vms"]
       delegate_to: proxmox1  # The hosts aren't provisioned yet, so no tasks should run on them. Delegate everything to proxmox but use docker inventory.
-    - role: proxmox/vm-post-tasks
+    - role: ../roles/proxmox/vm-post-tasks
       when: provision_vms
       tags: ["provision_vms"]
 

@@ -28,7 +28,7 @@
 
   roles:
 
-    - role: wsl/from-cloud-image
+    - role: ../roles/wsl/from-cloud-image
       when: download_wsl_instance
       tags: ["download_wsl_instance"]
 
